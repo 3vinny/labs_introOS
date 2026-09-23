@@ -13,29 +13,7 @@
 
 int main(int argc, char** argv)
 {
-    printf("Mi abuelo PID: %d\n", getpid());
-    pid_t padre = fork(); //usamos fork
-    
-    if (padre == 0)
-    {
-        printf("Padre PID: %d\n", getpid());
-        printf("Abuelo PID/PPID: %d\n", getppid()); //get parent pid
-
-        pid_t hijo = fork();
-        if (hijo == 0)
-        {
-            printf("Hijo PID: %d\n", getpid());
-            printf("Padre PID: %d\n", getppid());
-        } 
-        else
-        {
-            wait(NULL); //pequeño retardo en proceso hijo
-        }
-    } 
-    else
-    {
-        wait(NULL); //pequeño retardo en proceso padre
-        printf("Abuelo %d termino de esperar al padre\n", getpid());
-    }
+    int valor1 = 0;
+    scanf("%d", &valor);
     return 0;
 }
