@@ -1,11 +1,10 @@
-// 3.Dado un conjunto de valores del tipo {a,b,c} obtener 
-// las raíces de una ecuación cuadrática cuyos factores son a,b,c.   [Concurrente]
-// Resolver utilizando hilos (fork())
+// 4. Comparar su resultado anterior con la solución secuencial "sin fork()". 
+// [version secuencial del proceso 3]
 #include <stdio.h>
 #include <stdlib.h> // atof()
 #include <math.h> // sqrt raiz, fabs valor absoluto
-#include <unistd.h> //fork()
-#include <sys/wait.h> //wait()
+//#include <unistd.h> //fork(), ya no
+//#include <sys/wait.h> //wait(), ya no
 
 /* Resuelve una ecuación e imprime el resultado */
 void resolver(int n, double a, double b, double c)
@@ -73,21 +72,8 @@ int main(int argc, char *argv[])
         }
         n++;
 
-        // Un hijo por ecuación
-        pid_t pid = fork();
-        if (pid == 0) // Si mi programa es una copia
-        {
-            resolver(n, a, b, c); //resuelve la ecuación
-            fclose(archivo); //cierra el archivo
-            exit(0); // y termina su ejecución
-        }
+        resolver(n, a, b, c); //resuelve la ecuación
     }
     fclose(archivo);
-
-    // El padre espera a que termine sus hijos
-    for (int i=0; i<n; i++)
-    {
-        wait(NULL);
-    }
     return 0; // Programa finalizado con éxito
 }
